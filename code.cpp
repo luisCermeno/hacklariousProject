@@ -88,7 +88,7 @@ int userInput(int nTurn, bool& lost) //MUST BE CASE INDEPENDAT
     switch (nTurn)
     {
         case 0:
-            cout << "It's your turn: ";
+            cout << "-> It's your turn: ";
             getline(cin,keyStroke);
             if (keyStroke == "aa") skill = 0; //tapping the table twice reverses the flow
             else if (keyStroke == "a") skill = 1; // tapping the table once just passes the turn to the next player
@@ -100,7 +100,7 @@ int userInput(int nTurn, bool& lost) //MUST BE CASE INDEPENDAT
             }
             break;
         case 3:
-            cout << "It's your turn: ";
+            cout << "->It's your turn: ";
             cin >> keyStroke;
             cin.ignore(1000,10); 
             if (keyStroke == "dd") skill = 0; //tapping the table twice reverses the flow
