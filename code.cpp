@@ -17,7 +17,7 @@ using namespace std;
 //NONE
 
 //Programmer defined functions
-void updateSequence(int nTurn, int nHands,int skill, int* sequence);
+void updateSequence(int nTurn, int nHands,int skill, int rightOrLeft, int* sequence);
 
 //main program
 
@@ -37,13 +37,14 @@ int main()
     int sequence[nHands]; //the flow of the game, it has 7 elements and the element that is zero indicates whose turn is
     int i; //just a variable for loops
     int nTurn; //the hand number whose turn is (from 0 to 7)
+    int rightOrLeft = 1; // direction of the flow, 1 is right, -1 is left;
 
     srand(time(0)); //seed the ramdom number generator
     //int skill = rand() % 3;
 
 
     nTurn = 0;
-    int skill = 2;
+    int skill = 0;
     updateSequence(nTurn, nHands, skill, sequence);
     
     //test: show sequence
@@ -58,38 +59,44 @@ int main()
 
 }//main
 
-void updateSequence(int nTurn, int nHands, int skill, int* sequence)
+void updateSequence(int nTurn, int nHands, int skill, int rightOrLeft, int* sequence)
 {
     int i;
     int nextTurn;
-    if (skill == 0) nextTurn = 1;
-    if (skill == 1) nextTurn = -1;
-    if (skill == 2) nextTurn = 2;
+    switch
+    {
+        case 0;
+            nextTurn = -rightOrLeft; //double tap: reverses the flow
+            break;
 
+        
+        case 1;
+            nextTurn = 1;
+            break;
+        case 2;
+            nextTurn = 2;
+
+    }
 
     for (i = 0; i < nHands; i++)
     {
         sequence[i] = 0;
     }
-    for (i = 0; i < nHands; i++)
+
+    switch (skill)
     {
-        if ((((nHands-1) - nTurn) - nextTurn) >= 0) //detects if there is enough space to continue the flow
-        {
-            if (i == nTurn)
-            {
-            sequence[nTurn + nextTurn] = 1;
-            }
-        }
-        else
-        {
-            if (i == nTurn)
-            {
-                sequence[- (((nHands-1) - nTurn) - nextTurn) - 1] = 1;
-            }
-        }
-
-        
-
+        case 0:
+            if (nTurn == 0) sequence[7] = 1;
+            else sequence[nTurn + nextTurn] = 1;
+            rightOrLeft = rightOrLeft + 2 * (-rightOrLeft); // updates the direction of the flow
+            break;
+        case 1:
+        case 2:
+            if ((((nHands-1) - nTurn) - nextTurn) >= 0) sequence[nTurn + nextTurn] = 1; //detects if there is enough space to continue the flow
+            else sequence[- (((nHands-1) - nTurn) - nextTurn) - 1] = 1;
     }
+
+
+
 }
 
