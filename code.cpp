@@ -17,11 +17,11 @@ using namespace std;
 //NONE
 
 //Programmer defined functions
-void updateSequence(int nTurn, int nHands,int skill, int rightOrLeft, int* sequence);
+int updateSequence(int nTurn, int nHands,int skill, int rightOrLeft, int* sequence);
+void showSequence(int nHands, int* sequence);
 
 //main program
 
-//user compilingInfo
 
 
 
@@ -43,34 +43,24 @@ int main()
     srand(time(0)); //seed the ramdom number generator
     //int skill = rand() % 3;
 
-    nTurn = 6;  
+    nTurn = 7;  
     skill = 2;
     rightOrLeft = 1;
-    
-    updateSequence(nTurn, nHands, skill, rightOrLeft, sequence);
+
+    //Updates the sequence
+    rightOrLeft = updateSequence(nTurn,nHands,skill,rightOrLeft,sequence);
     
     //test: show sequence
-    for (i = 0; i < nHands; i++)
-    {
-        cout << sequence[i];
-    }
-    cout << endl;
+    showSequence(nHands, sequence);
+
+
     //test: show sequence
-
-
-
 }//main
 
-void updateSequence(int nTurn, int nHands, int skill, int rightOrLeft, int* sequence)
+int updateSequence(int nTurn, int nHands, int skill, int rightOrLeft, int* sequence)
 {
     int i;
-    int nextTurn;
-
-    for (i = 0; i < nHands ; i++)
-    {
-        sequence[i] = 0;
-    }
-
+    for (i = 0; i < nHands ; i++) sequence[i] = 0;
     switch (skill)
     {
         case 0: //goes to the next player reversing the flow
@@ -91,7 +81,14 @@ void updateSequence(int nTurn, int nHands, int skill, int rightOrLeft, int* sequ
             else if (nTurn == 6 && rightOrLeft == 1) sequence[0] = 1;
             else sequence[nTurn + 2*rightOrLeft] = 1;
     }
-
-
+    return rightOrLeft;
 }
 
+void showSequence(int nHands, int* sequence)
+{
+    for (int i = 0; i < nHands; i++)
+    {
+        cout << sequence[i];
+    }
+    cout << endl;
+}
