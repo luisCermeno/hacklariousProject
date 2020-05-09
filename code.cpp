@@ -11,7 +11,11 @@ using namespace std;
 //NONE
 
 //Special compiler dependent definitions
-//NONE
+#ifdef _WIN32 
+#include <windows.h> 
+#else 
+#include <unistd.h> 
+#endif 
 
 //global constants/variables
 //NONE
@@ -21,10 +25,6 @@ int updateSequence(int nTurn, int nHands,int skill, int rightOrLeft, int* sequen
 void showSequence(int nHands, int* sequence);
 
 //main program
-
-
-
-
 int main()
 {
     //compilation info
@@ -39,22 +39,47 @@ int main()
     int nTurn; //the hand number whose turn is (from 0 to 7)
     int rightOrLeft; // direction of the flow, 1 is right, -1 is left;
     int skill;
-
-    srand(time(0)); //seed the ramdom number generator
-    //int skill = rand() % 3;
-
-    nTurn = 7;  
-    skill = 2;
-    rightOrLeft = 1;
-
-    //Updates the sequence
-    rightOrLeft = updateSequence(nTurn,nHands,skill,rightOrLeft,sequence);
+    srand(time(0)); //seeds the ramdom number generator
     
-    //test: show sequence
-    showSequence(nHands, sequence);
+    //initial values
+    nTurn = 0;  //stars with hand number 0: the user hand
+    rightOrLeft = 1; //starts the flow going to the right
+    //initial values
+
+    //GAME CORE
+    while (true)
+    {
+        //*Play processing
+        skill = rand() % 3; //computer generates a random skill to play
+        cout << "Following the direction of the flow of rightOrLeft = " << rightOrLeft << endl << "Player nTurn = " << nTurn << " has played with skill = " << skill  << endl;
+        rightOrLeft = updateSequence(nTurn,nHands,skill,rightOrLeft,sequence); //updates rightOrLeft: direction of flow and array sequence
+        for (i = 0; i < nHands ; i++) if (sequence[i] == 1) nTurn = i; //updates nTurn: whos turn is for the next play.
+
+        //*UI: Show game sequence to the user
+        showSequence(nHands, sequence);
+        cout << "Now the the direction of the flow is rightOrLeft = " << rightOrLeft << endl << "It's turn for player nTurn = " << nTurn << endl;
+        cout << endl;
+
+        //Time between plays
+        cout.flush();  //clears the output buffer
+        //pause for one  second 
+        #ifdef _WIN32 
+        Sleep(1000); // 1 second
+        #else 
+        sleep(1); // 1 second
+        #endif 
+    }
 
 
-    //test: show sequence
+
+
+
+    
+
+    
+
+
+
 }//main
 
 int updateSequence(int nTurn, int nHands, int skill, int rightOrLeft, int* sequence)
