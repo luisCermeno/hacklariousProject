@@ -21,6 +21,7 @@ using namespace std;
 //NONE
 
 //Programmer defined functions
+void gameLog(int nTurn, int skill);
 int updateSequence(int nTurn, int nHands,int skill, int rightOrLeft, int* sequence);
 void showSequence(int nHands, int* sequence);
 
@@ -49,15 +50,31 @@ int main()
     //GAME CORE
     while (true)
     {
+
+        switch (nTurn)
+        {
+            case 0:
+                cout << "Your left hand's play:";
+                cin >> skill;
+                cin.ignore(1000,10);
+                break;
+            case 3:
+                cout << "Your right hand's play:";
+                cin >> skill;
+                cin.ignore(1000,10); 
+            default: skill = rand() % 3; //computer generates a random skill to play
+        }
+        cout << endl;
+
+        //Show game log
+        gameLog(nTurn, skill);
+
         //*Play processing
-        skill = rand() % 3; //computer generates a random skill to play
-        cout << "Following the direction of the flow of rightOrLeft = " << rightOrLeft << endl << "Player nTurn = " << nTurn << " has played with skill = " << skill  << endl;
         rightOrLeft = updateSequence(nTurn,nHands,skill,rightOrLeft,sequence); //updates rightOrLeft: direction of flow and array sequence
         for (i = 0; i < nHands ; i++) if (sequence[i] == 1) nTurn = i; //updates nTurn: whos turn is for the next play.
 
         //*UI: Show game sequence to the user
         showSequence(nHands, sequence);
-        cout << "Now the the direction of the flow is rightOrLeft = " << rightOrLeft << endl << "It's turn for player nTurn = " << nTurn << endl;
         cout << endl;
 
         //Time between plays
@@ -69,17 +86,6 @@ int main()
         sleep(1); // 1 second
         #endif 
     }
-
-
-
-
-
-    
-
-    
-
-
-
 }//main
 
 int updateSequence(int nTurn, int nHands, int skill, int rightOrLeft, int* sequence)
@@ -111,9 +117,52 @@ int updateSequence(int nTurn, int nHands, int skill, int rightOrLeft, int* seque
 
 void showSequence(int nHands, int* sequence)
 {
+    cout << "The flow goes : ";
     for (int i = 0; i < nHands; i++)
     {
         cout << sequence[i];
     }
     cout << endl;
+}
+
+void gameLog(int nTurn, int skill)
+{
+    switch (nTurn)
+    {
+        case 0:
+            cout << "Your left hand has";
+            break;
+        case 1:
+            cout << "Bot1 (right hand) has";
+            break;
+        case 2:
+            cout << "Bot2 (left hand) has";
+            break;
+        case 3:
+            cout << "Your right hand has";
+            break;
+        case 4:
+            cout << "Bot3 (left hand) has";
+            break;
+        case 5:
+            cout << "Bot2 (right hand) has";
+            break;
+        case 6:
+            cout << "Bot1 (left hand) has";
+            break;
+        case 7:
+            cout << "Bot3 (right hand) has";
+            break;
+    }
+    switch (skill)
+    {
+        case 0:
+            cout << " tapped the table twice. Flow is reversing!" << endl;
+            break;
+        case 1:
+            cout << " tapped the table once." << endl;
+            break;
+        case 2:
+            cout << " hit the table with their fist. One player is being skipped!" << endl;
+    }
 }
