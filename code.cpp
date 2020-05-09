@@ -21,6 +21,7 @@ using namespace std;
 //NONE
 
 //Programmer defined functions
+int userInput(int nTurn, bool& lost);
 void gameLog(int nTurn, int skill);
 int updateSequence(int nTurn, int nHands,int skill, int rightOrLeft, int* sequence);
 void showSequence(int nHands, int* sequence);
@@ -33,37 +34,29 @@ int main()
     cout << "Compiler(s) used: Apple clang version 11.0.3 (clang-1103.0.32.59)\n"; 
     cout << "File: " << __FILE__ << endl;
     cout << "Complied: " << __DATE__ << " at " << __TIME__ << endl << endl; 
+
     //Data
     int nHands = 8; // number of playing hands
     int sequence[nHands]; //the flow of the game, it has 7 elements and the element that is zero indicates whose turn is
-    int i; //just a variable for loops
     int nTurn; //the hand number whose turn is (from 0 to 7)
     int rightOrLeft; // direction of the flow, 1 is right, -1 is left;
-    int skill;
+    int skill; //type of tap by the user, 0 is two taps reversing, 1 is a single tap, 2 is three taps skipping one player.
+    int i; //just a variable for loops
+    bool lost = false; //is true when user loses
     srand(time(0)); //seeds the ramdom number generator
     
     //initial values
-    nTurn = 0;  //stars with hand number 0: the user hand
-    rightOrLeft = 1; //starts the flow going to the right
+    cout << "You will start the game with your left hand. The flow starts to you right!" << endl;
+    nTurn = 0;  //stars with sequende element 0: the user left hand
+    rightOrLeft = 1; //flow starts going to the right
     //initial values
 
     //GAME CORE
-    while (true)
+    while (!lost)
     {
-
-        switch (nTurn)
-        {
-            case 0:
-                cout << "Your left hand's play:";
-                cin >> skill;
-                cin.ignore(1000,10);
-                break;
-            case 3:
-                cout << "Your right hand's play:";
-                cin >> skill;
-                cin.ignore(1000,10); 
-            default: skill = rand() % 3; //computer generates a random skill to play
-        }
+        //User input
+        skill = userInput(nTurn, lost);
+        if (lost) break;
         cout << endl;
 
         //Show game log
@@ -78,7 +71,6 @@ int main()
         cout << endl;
 
         //Time between plays
-        cout.flush();  //clears the output buffer
         //pause for one  second 
         #ifdef _WIN32 
         Sleep(1000); // 1 second
@@ -87,6 +79,44 @@ int main()
         #endif 
     }
 }//main
+
+
+int userInput(int nTurn, bool& lost) //MUST BE CASE INDEPENDAT
+{
+    int skill;
+    string keyStroke;
+    switch (nTurn)
+    {
+        case 0:
+            cout << "It's your turn: ";
+            getline(cin,keyStroke);
+            if (keyStroke == "aa") skill = 0; //tapping the table twice reverses the flow
+            else if (keyStroke == "a") skill = 1; // tapping the table once just passes the turn to the next player
+            else if (keyStroke == "aaa") skill = 2; // tapping the table three times skips one player
+            else
+            {
+            cout << "You lost!" << endl;
+            lost = true;
+            }
+            break;
+        case 3:
+            cout << "It's your turn: ";
+            cin >> keyStroke;
+            cin.ignore(1000,10); 
+            if (keyStroke == "dd") skill = 0; //tapping the table twice reverses the flow
+            else if (keyStroke == "d") skill = 1; // tapping the table once just passes the turn to the next player
+            else if (keyStroke == "ddd") skill = 2; // tapping the table three times skips one player
+            else 
+            {
+            cout << "You lost!" << endl;
+            lost = true;
+            }
+            break;
+        default: skill = rand() % 3; //computer generates a random skill to play
+    }
+    return skill;
+}
+
 
 int updateSequence(int nTurn, int nHands, int skill, int rightOrLeft, int* sequence)
 {
@@ -163,6 +193,6 @@ void gameLog(int nTurn, int skill)
             cout << " tapped the table once." << endl;
             break;
         case 2:
-            cout << " hit the table with their fist. One player is being skipped!" << endl;
+            cout << " tapped the table three times. One player is being skipped!" << endl;
     }
 }
