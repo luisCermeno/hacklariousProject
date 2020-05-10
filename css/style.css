@@ -47,52 +47,63 @@ footer {
 
 .star-1 {
     margin-top: 10%;
-    margin-left: 55%;
+    margin-left: 57%;
     background-color: orange;
   }
 
 .star-2 {
     margin-top: 10%;
-    margin-left: 22%;
+    margin-left: 20%;
     background-color: red;
   }
 
 .star-3 {
     margin-top: 10%;
     margin-left: 73%;
-    background-color: white;
+    background-color: green;
   }
 
 .star-4 {
     margin-top: 10%;
     margin-left: 12%;
-    background-color: white;
+    background-color: green;
   }
 
 .star-5 {
     margin-top: 10%;
     margin-left: 73%;
-    background-color: white;
+    background-color: #0000FF;
   }
 
 .star-6 {
     margin-top: 10%;
     margin-left: 12%;
-    background-color: white;
+    background-color: #0000FF;
   }
 
 .star-7 {
     margin-top: 10%;
-    margin-left: 55%;
+    margin-left: 57%;
     background-color: orange;
   }
 
 .star-8 {
     margin-top: 10%;
-    margin-left: 22%;
+    margin-left: 20%;
     background-color: red;
   }
 
+.star-5:hover{
+    margin-top: 10%;
+    margin-left: 73%;
+    background-color: #ADD8E6;
+  }
+
+.star-6:hover{
+    margin-top: 10%;
+    margin-left: 12%;
+    background-color: #ADD8E6;
+  }
 
 
 
