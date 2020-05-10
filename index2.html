@@ -10,9 +10,9 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.6/css/mdb.min.css">
 
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.6/js/mdb.min.js"></script>
-
     <title>Project | Game Name</title>
+    
+    <script src="script.js" defer>  </script>
   </head>
 
 
@@ -26,13 +26,6 @@
       </blockquote>
     </div>
   </div>
-
-
-
-
-
-
-
 
   <div class="row" style="margin-top: 50px; margin-bottom: 30px;">
   <div class="empty" style="width: 20%;"></div>
@@ -67,8 +60,8 @@
   <div class="column" style="width: 10%;">
     
   </div>
-  <div class="column" style="width: 10%">
-    
+  <div class="column" data-userPlayBox style="width: 10%">
+    user plays will appear here
   </div>
   <div class="column" style="width: 40%">
     <div class="stars star-4"></div>
@@ -77,16 +70,16 @@
 
 <div class="row" style="margin-top: 20px; margin-bottom: 20px;">
   <div class="column" style="width: 40%">
-    <div class="stars star-5"> <br> <a href=""> <h1 style="margin-bottom: 20px; margin-left: 13px;">You</h1> </a> </div>
+    <div class="stars star-5"> <br> <button data-btnLefthand style="margin-bottom: 20px; margin-left: 13px;" >You left hand</button> </div>
   </div>
   <div class="column" style="width: 10%;">
-    
+  
   </div>
-  <div class="column" style="width: 10%">
-    
+  <div class="column" data-gameLogBox style="width: 10%">
+    game log will appear here
   </div>
   <div class="column" style="width: 40%">
-    <div class="stars star-6"> <br> <a href=""> <h1 style="margin-left: 17px; margin-bottom: 20px;"> You</h1> </a> </div> 
+    <div class="stars star-6"> <br> <button data-btnRighthand style="margin-left: 17px; margin-bottom: 20px;">Your right hand</button> </div> 
   </div>
 </div>
 
@@ -95,13 +88,14 @@
     
   </div>
   <div class="column" style="width: 25%;">
+
     <div class="stars star-7"></div>
   </div>
   <div class="column" style="width: 25%">
     <div class="stars star-8"></div>
   </div>
   <div class="column" style="width: 25%">
-    
+    <button data-startButton style="margin-bottom: 20px; margin-left: 13px;" >START GAME</button>
   </div>
 </div>
 
